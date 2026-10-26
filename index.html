@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>익명 후원 페이지</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f4f5f7; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .donation-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 350px; }
+        h2 { text-align: center; color: #333; margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; font-size: 14px; }
+        input[type="number"], select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        input[type="number"]:focus, select:focus { outline: none; border-color: #3182f6; }
+        .pay-btn { width: 100%; padding: 14px; background-color: #3182f6; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .pay-btn:hover { background-color: #1b64da; }
+        .account-info { margin-top: 25px; padding: 15px; background-color: #f8f9fa; border-radius: 8px; font-size: 13px; color: #666; text-align: center; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+<div class="donation-box">
+    <h2>익명 후원하기</h2>
+    <div class="form-group">
+        <label for="amount">후원 금액 (원)</label>
+        <input type="number" id="amount" placeholder="예: 10000" min="1000">
+    </div>
+    <div class="form-group">
+        <label for="method">결제 수단</label>
+        <select id="method">
+            <option value="toss">토스페이</option>
+            <option value="kakao">카카오페이</option>
+            <option value="vbank">가상계좌 발급</option>
+        </select>
+    </div>
+    <button class="pay-btn" onclick="requestPayment()">후원 결제하기</button>
+
+    <div class="account-info">
+        <strong>최종 정산 계좌</strong><br>
+        국민은행 8062-9073-0338-54
+    </div>
+</div>
+
+<script>
+    function requestPayment() {
+        const amount = document.getElementById('amount').value;
+        const method = document.getElementById('method').value;
+
+        if(!amount || amount < 1000) {
+            alert("최소 1,000원 이상 입력해주세요.");
+            return;
+        }
+
+        // 실제 서비스 구축 시 이 부분에 토스페이먼츠, 포트원 등의 결제 API 호출 코드가 작성됩니다.
+        let methodText = "";
+        if(method === 'toss') methodText = "토스페이";
+        else if(method === 'kakao') methodText = "카카오페이";
+        else if(method === 'vbank') methodText = "가상계좌";
+
+        alert(`${amount}원을 ${methodText}(으)로 결제 요청합니다.\n\n※ 현재는 프론트엔드 UI 테스트 환경이며, 실제 결제를 위해서는 PG사 가입 및 백엔드 API 연동이 필요합니다.`);
+    }
+</script>
+
+</body>
+</html>
